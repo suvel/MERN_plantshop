@@ -41,7 +41,7 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import Contact from './components/Contact/Contact';
 import Shop from './components/layouts/Shop';
-
+import ContactMessagesList from './components/admin/ContactMessagesList';
 
 
 function App() {
@@ -97,6 +97,8 @@ function App() {
                   <Route path='/admin/users' element={ <ProtectedRoute isAdmin={true}><UserList/></ProtectedRoute> } />
                   <Route path='/admin/user/:id' element={ <ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute> } />
                   <Route path='/admin/reviews' element={ <ProtectedRoute isAdmin={true}><ReviewList/></ProtectedRoute> } />
+                  <Route path='/admin/contact-messages' element={ <ProtectedRoute isAdmin={true}><ContactMessagesList/></ProtectedRoute> } />
+               
                 </Routes>
             <Footer/>
         </HelmetProvider>

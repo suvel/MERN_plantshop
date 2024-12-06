@@ -19,21 +19,21 @@ export default function UpdateProduct () {
     const { id:productId } = useParams();
     
     const { loading, isProductUpdated, error, product } = useSelector( state => state.productState)
-
-    const categories = [
-        'Electronics',
-        'Mobile Phones',
-        'Laptops',
-        'Accessories',
-        'Headphones',
-        'Food',
-        'Books',
-        'Clothes/Shoes',
-        'Beauty/Health',
-        'Sports',
-        'Outdoor',
-        'Home'
-    ];
+    const categories = ['Plants', 'Plant Care'];
+    // const categories = [
+    //     'Electronics',
+    //     'Mobile Phones',
+    //     'Laptops',
+    //     'Accessories',
+    //     'Headphones',
+    //     'Food',
+    //     'Books',
+    //     'Clothes/Shoes',
+    //     'Beauty/Health',
+    //     'Sports',
+    //     'Outdoor',
+    //     'Home'
+    // ];
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
