@@ -1,12 +1,13 @@
 import React from 'react';
-import { Home, ShoppingBag, ClipboardList, Heart, Info, X } from 'lucide-react'; // Import the X icon
+import { Home, ShoppingBag, ClipboardList, ShoppingCart, Info, Phone, X } from 'lucide-react'; // Import the Phone icon for Contact
 
 export function MobileMenu({ isOpen, onClose }) {
   const menuItems = [
     { icon: <Home size={20} />, label: 'Home', href: '/' },
     { icon: <ShoppingBag size={20} />, label: 'Shop', href: '/shop' },
     { icon: <ClipboardList size={20} />, label: 'Orders', href: '/orders' },
-    { icon: <Heart size={20} />, label: 'Wishlist', href: '/wishlist' },
+    { icon: <ShoppingCart size={20} />, label: 'Cart', href: '/cart' }, // Shopping cart option
+    { icon: <Phone size={20} />, label: 'Contact', href: '/contact' }, // Added Contact option
     { icon: <Info size={20} />, label: 'About', href: '/about' },
   ];
 
