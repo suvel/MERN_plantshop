@@ -38,12 +38,12 @@ export default function Dashboard () {
 
 
     return (
-        <div className="row">
+        <div className="row" style={{ backgroundColor: '#e8f5e9' }}>
             <div className="col-12 col-md-2">
                     <Sidebar/>
             </div>
             <div className="col-12 col-md-10">
-                <h1 className="my-4">Dashboard</h1>
+                <h1 className="my-4" style={{ color: 'green' }}>Dashboard</h1>
                 <div className="row pr-4">
                     <div className="col-xl-12 col-sm-12 mb-3">
                         <div className="card text-white bg-primary o-hidden h-100">
@@ -106,6 +106,11 @@ export default function Dashboard () {
                                 <div className="text-center card-font-size">Out of Stock<br /> <b>{outOfStock}</b></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className="row pr-4">
+                    <div className="col-xl-12 col-sm-12 mb-3">
+                        <img src="path/to/plant-image.jpg" alt="Plant" style={{ width: '100%', height: 'auto' }} />
                     </div>
                 </div>
             </div>

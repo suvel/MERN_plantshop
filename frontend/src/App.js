@@ -2,6 +2,7 @@ import './App.css';
 import Home from './components/Home';
 import Footer from './components/layouts/Footer';
 import Header from './components/layouts/Header';
+// import HeroSection from './components/HeroSection';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify';
@@ -38,6 +39,10 @@ import UpdateOrder from './components/admin/UpdateOrder';
 import UserList from './components/admin/UserList';
 import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
+import Contact from './components/Contact/Contact';
+import Shop from './components/layouts/Shop';
+
+
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
@@ -58,7 +63,10 @@ function App() {
                 <div className='container container-fluid'>
                   <ToastContainer theme='dark' />
                   <Routes>
-                      <Route path='/' element={<Home/>} />
+                      <Route path='/' element={<Home/>} />  
+                      <Route path="/shop" element={<Shop />} />
+                      
+                      <Route path="/contact" element={<Contact />} />
                       <Route path='/search/:keyword' element={<ProductSearch/>} />
                       <Route path='/product/:id' element={<ProductDetail/>} />
                       <Route path='/login' element={<Login/>} />
