@@ -1,18 +1,28 @@
-import { Fragment, useEffect } from "react"
+
+
+import { Fragment, useEffect, useState  } from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { deleteOrder, adminOrders as adminOrdersAction } from "../../actions/orderActions"
+import { deleteOrder, adminOrders as adminOrdersAction,updateOrder } from "../../actions/orderActions"
 import { clearError, clearOrderDeleted } from "../../slices/orderSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable} from 'mdbreact';
 import {toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
 
+import { FiEdit, FiTrash2, FiRefreshCcw } from 'react-icons/fi';
+import axios from 'axios';
+
+
 export default function OrderList() {
     const { adminOrders = [], loading = true, error, isOrderDeleted }  = useSelector(state => state.orderState)
 
     const dispatch = useDispatch();
+    //const { orders = [], loading = true, error, isOrderDeleted } = useSelector((state) => state.orderState);
+    
+    const [refunding, setRefunding] = useState({});
+    
 
     const setOrders = () => {
         const data = {
@@ -58,6 +68,17 @@ export default function OrderList() {
                         <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger py-1 px-2 ml-2">
                             <i className="fa fa-trash"></i>
                         </Button>
+                        
+                    {order.paymentInfo.id!=="COD" && order.paymentInfo.status !== 'Refunded' &&  order.orderStatus!=="Delivered" &&(
+                      <button style={{ marginLeft: '10px' }}
+                        onClick={() => refundHandler(order)}
+                        className="text-yellow-600 hover:text-yellow-900"
+                        disabled={refunding[order._id]}
+                      >
+                        <FiRefreshCcw className="inline-block mr-1" />
+                        {refunding[order._id] ? 'Refunding...' : 'Refund'}
+                      </button>
+                    )}
                     </Fragment>
                 )
             })
@@ -70,6 +91,38 @@ export default function OrderList() {
         e.target.disabled = true;
         dispatch(deleteOrder(id))
     }
+    
+  const refundHandler = async (order) => {
+    setRefunding({ ...refunding, [order._id]: true });
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      const { data } = await axios.post('/api/v1/payment/refund', { paymentIntentId: order.paymentInfo.id }, config);
+      if (data.success) {
+        toast('Refund processed successfully', {
+          type: 'success',
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+        // Update order status to 'Refunded'
+        
+        dispatch(updateOrder(order._id, { status: 'Refunded' }));
+        dispatch(adminOrdersAction);
+      }
+    } catch (error) {
+      toast(error.response?.data?.message || 'Refund failed', {
+        type: 'error',
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    }
+    setRefunding({ ...refunding, [order._id]: false });
+    //add function to et staus of payment to refunded
+//await order.paymentInfo.status = 'Refunded';
+
+  };
+
 
     useEffect(() => {
         if(error) {

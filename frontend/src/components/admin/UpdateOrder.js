@@ -20,12 +20,31 @@ export default function UpdateOrder () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // const submitHandler = (e) => {
+    //     e.preventDefault();
+    //     const orderData = {};
+    //     orderData.orderStatus = orderStatus;
+    //     if(orderData.orderStatus === "Delivered") {
+    //         orderData.paymentInfo.status = "Paid";
+    //     }
+    //     dispatch(updateOrder(orderId, orderData))
+    // }
     const submitHandler = (e) => {
         e.preventDefault();
-        const orderData = {};
-        orderData.orderStatus = orderStatus;
-        dispatch(updateOrder(orderId, orderData))
-    }
+        const orderData = {
+            orderStatus: orderStatus,
+        };
+    
+        if (orderStatus === "Delivered") {
+            orderData.paymentInfo = { 
+                ...orderDetail.paymentInfo, 
+                status: "Paid" 
+            }; // Preserve existing paymentInfo and update the status to 'Paid'
+        }
+    
+        dispatch(updateOrder(orderId, orderData));
+    };
+    
     
     useEffect(() => {
         if(isOrderUpdated) {
@@ -79,7 +98,7 @@ export default function UpdateOrder () {
                             <hr />
     
                             <h4 className="my-4">Payment</h4>
-                            <p className={isPaid ? 'greenColor' : 'redColor' } ><b>{isPaid ? 'PAID' : 'NOT PAID' }</b></p>
+                            <p className={isPaid ? 'greenColor' : 'redColor' } ><b>{paymentInfo.status }</b></p>
     
     
                             <h4 className="my-4">Order Status:</h4>

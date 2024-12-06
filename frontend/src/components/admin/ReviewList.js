@@ -11,7 +11,7 @@ import Sidebar from "./Sidebar"
 export default function ReviewList() {
     const { reviews = [], loading = true, error, isReviewDeleted }  = useSelector(state => state.productState)
     const [productId, setProductId] = useState("");
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
 
     const setReviews = () => {
         const data = {
