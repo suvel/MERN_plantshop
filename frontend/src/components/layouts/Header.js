@@ -16,14 +16,17 @@ export default function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.authState);
   const { items: cartItems } = useSelector((state) => state.cartState);
 
+  // const handleAboutClick = () => {
+  //   navigate('/');
+  //   setTimeout(() => {
+  //     const aboutSection = document.getElementById('about-section');
+  //     if (aboutSection) {
+  //       aboutSection.scrollIntoView({ behavior: 'smooth' });
+  //     }
+  //   }, 100);
+  // };
   const handleAboutClick = () => {
-    navigate('/');
-    setTimeout(() => {
-      const aboutSection = document.getElementById('about-section');
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+    navigate('/about');
   };
 
   const logoutHandler = () => {

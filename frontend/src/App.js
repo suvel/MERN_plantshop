@@ -41,6 +41,7 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import Contact from './components/Contact/Contact';
 import Shop from './components/layouts/Shop';
+import AboutUs from './components/AboutUs/AboutUs';
 
 
 
@@ -65,7 +66,8 @@ function App() {
                   <Routes>
                       <Route path='/' element={<Home/>} />  
                       <Route path="/shop" element={<Shop />} />
-                      
+
+                      <Route path="/about" element={<AboutUs />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path='/search/:keyword' element={<ProductSearch/>} />
                       <Route path='/product/:id' element={<ProductDetail/>} />

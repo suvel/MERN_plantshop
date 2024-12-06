@@ -14,6 +14,8 @@ import Achievements from './Achievements'; // Import Achievements
 import Testimonials from './Testimonials'; // Import Testimonials
 import PlantShop from './PlantShop'; // Import PlantShop
 import 'animate.css';
+import StoreLocator from '../components/StoreLocator';
+import './StoreLocator.css'; // Import the CSS file
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -81,6 +83,7 @@ export default function Home() {
                                  <PlantShop /> {/* Add PlantShop here */}
                                  <Testimonials /> {/* Add Testimonials here */}
                                 <AboutSection /> {/* Add AboutSection here */}
+                                <StoreLocator /> {/* Add StoreLocator here */}
                             </Fragment>
                         )}
                     </Fragment>
