@@ -22,8 +22,8 @@ export  default function ProductSearch(){
     const [rating, setRating] = useState(0);
 
     const { keyword } = useParams();
-    const categories = [  
-        'Plants','Plant Care',
+    const categories = ['Plants', 'Plant Care','House Shape Plant',
+        'Office Plant','Hanging Planter','Ceramic Pot and Plant'
     ];
  
     const setCurrentPageNo = (pageNo) =>{
