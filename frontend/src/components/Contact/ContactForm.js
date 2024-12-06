@@ -1,5 +1,10 @@
-// ContactForm.js
-import React from 'react';
+'use client'
+
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createContact } from '../../actions/contactActions';
+import { clearError, clearMessageSent } from '../../slices/contactSlice';
+import { toast } from 'react-toastify';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
 const socialLinks = [
@@ -10,8 +15,47 @@ const socialLinks = [
 ];
 
 export function ContactForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const dispatch = useDispatch();
+  const { loading, error, isMessageSent } = useSelector(state => state.contactState);
+
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = { name, email, phoneNumber, subject, message };
+    dispatch(createContact(formData));
+  };
+
+  useEffect(() => {
+    if (error) {
+      toast(error, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        type: 'error',
+        onOpen: () => { dispatch(clearError()) }
+      });
+    }
+
+    if (isMessageSent) {
+      toast('Message sent successfully!', {
+        position: toast.POSITION.BOTTOM_CENTER,
+        type: 'success',
+        onOpen: () => { dispatch(clearMessageSent()) }
+      });
+      // Reset form
+      setName('');
+      setEmail('');
+      setPhoneNumber('');
+      setSubject('');
+      setMessage('');
+    }
+  }, [dispatch, error, isMessageSent]);
+
   return (
-    <div className="bg-green-800 py-16"> {/* Set background to dark green */}
+    <div className="bg-green-800 py-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
@@ -33,41 +77,57 @@ export function ContactForm() {
             </div>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={submitHandler} className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <input
                 type="text"
                 placeholder="Your Name"
-                className="bg-navy-800 text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="bg-navy-800 text-black rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <input
                 type="email"
                 placeholder="Email Address"
-                className="bg-navy-800 text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="bg-navy-800 text-black rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <input
                 type="tel"
                 placeholder="Phone No."
-                className="bg-navy-800 text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+                className="bg-navy-800 text-black rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <input
                 type="text"
                 placeholder="Subject"
-                className="bg-navy-800 text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                required
+                className="bg-navy-800 text-black rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
             <textarea
               placeholder="Message"
               rows={4}
-              className="w-full bg-navy-800 text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              className="w-full bg-navy-800 text-black rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             ></textarea>
             <button
               type="submit"
-              className="bg-emerald-500 text-white px-8 py-3 rounded-md hover:bg-emerald-600 transition-colors duration-300"
+              disabled={loading}
+              className="bg-emerald-500 text-black px-8 py-3 rounded-md hover:bg-emerald-600 transition-colors duration-300 disabled:opacity-50"
             >
-              Submit
+              {loading ? 'Sending...' : 'Submit'}
             </button>
           </form>
         </div>
@@ -75,3 +135,4 @@ export function ContactForm() {
     </div>
   );
 }
+
