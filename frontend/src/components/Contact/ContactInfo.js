@@ -28,13 +28,13 @@ export function ContactInfo() {
         </InfoCard>
 
         <InfoCard icon={<MapPin className="w-8 h-8 text-emerald-500" />} title="Address">
-          <p className="text-gray-600">12980 Mighal Hill Road California, NA, 20110</p>
+          <p className="text-gray-600">Shop 21, Mina Zayed, Abu Dhabi, UAE.</p>
         </InfoCard>
 
         <InfoCard icon={<Phone className="w-8 h-8 text-emerald-500" />} title="Contacts">
           <div className="text-gray-600 space-y-1">
-            <p>+01(2)345-6789</p>
-            <p>plantnursery@example.com</p>
+            <p>+971 502369764</p>
+            <p>treesherbsandmore@gmail.com</p>
           </div>
         </InfoCard>
       </div>

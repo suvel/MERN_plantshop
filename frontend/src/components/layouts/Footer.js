@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { Logo } from './Logo'; // Ensure the path is correct
 import { SocialLinks } from './SocialLinks'; // Ensure the path is correct
 import { Phone, Mail } from 'lucide-react'; // Ensure lucide-react is installed
 
 export default function Footer() {
+  const navigate = useNavigate(); // Initialize navigate for navigation
+
   return (
     <footer className="bg-white py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -20,14 +23,15 @@ export default function Footer() {
             <h3 className="font-semibold text-lg text-gray-800">Got Questions? Connect Us</h3>
             <div className="flex items-center gap-2 text-emerald-500">
               <Phone size={20} />
-              <a href="tel:+180012151214" className="hover:text-emerald-600 transition-colors">
-                +1800-1215-1214
+              <a href="tel:+0522330399" className="hover:text-emerald-600 transition-colors">
+                +052 2330399
               </a>
+              
             </div>
             <div className="flex items-center gap-2 text-emerald-500">
               <Mail size={20} />
-              <a href="mailto:Example@mail.com" className="hover:text-emerald-600 transition-colors">
-                Example@mail.com
+              <a href="mailto:treesherbsandmore@gmail.com" className="hover:text-emerald-600 transition-colors">
+                Treesherbsandmore@gmail.com
               </a>
             </div>
           </div>
@@ -36,16 +40,25 @@ export default function Footer() {
             <h3 className="font-semibold text-lg text-gray-800">Useful Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">About Us</a>
+                <button
+                  onClick={() => navigate('/about')}
+                  className="text-gray-600 hover:text-emerald-500 transition-colors"
+                >
+                  About Us
+                </button>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">How to Shop</a>
+                <a href="#" className="text-gray-600 hover:text-emerald-500">
+                  FAQ
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">FAQ</a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">Contact Us</a>
+                <button
+                  onClick={() => navigate('/contact')} // Navigate to contact page
+                  className="text-gray-600 hover:text-emerald-500 transition-colors"
+                >
+                  Contact Us
+                </button>
               </li>
             </ul>
           </div>
@@ -54,14 +67,28 @@ export default function Footer() {
             <h3 className="font-semibold text-lg text-gray-800">My Account</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">Sign In</a>
+                <button
+                  onClick={() => navigate('/login')} // Navigate to login page
+                  className="text-gray-600 hover:text-emerald-500 transition-colors"
+                >
+                  Sign In
+                </button>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">View Cart</a>
+                <button
+                  onClick={() => navigate('/cart')} // Navigate to cart page
+                  className="text-gray-600 hover:text-emerald-500 transition-colors"
+                >
+                  View Cart
+                </button>
               </li>
-              
               <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">Track My Order</a>
+                <button
+                  onClick={() => navigate('/orders')} // Navigate to orders page
+                  className="text-gray-600 hover:text-emerald-500 transition-colors"
+                >
+                  Track My Order
+                </button>
               </li>
             </ul>
           </div>
@@ -76,7 +103,6 @@ export default function Footer() {
           <p className="text-gray-600 text-sm">
             Trees Herbs & More Flowers - 2024-2025, All Rights Reserved
           </p>
-          
         </div>
       </div>
     </footer>

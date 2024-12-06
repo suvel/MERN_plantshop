@@ -41,7 +41,12 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import Contact from './components/Contact/Contact';
 import Shop from './components/layouts/Shop';
+<<<<<<< HEAD
 import ContactMessagesList from './components/admin/ContactMessagesList';
+=======
+import AboutUs from './components/AboutUs/AboutUs';
+
+>>>>>>> b5d76599934aa368679281635a746906d206b07a
 
 
 function App() {
@@ -65,7 +70,8 @@ function App() {
                   <Routes>
                       <Route path='/' element={<Home/>} />  
                       <Route path="/shop" element={<Shop />} />
-                      
+
+                      <Route path="/about" element={<AboutUs />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path='/search/:keyword' element={<ProductSearch/>} />
                       <Route path='/product/:id' element={<ProductDetail/>} />

@@ -96,7 +96,8 @@ export default function Achievements() {
               Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
               ipsum suspendisse gravida.
             </p>
-            <motion.button
+            <motion.a
+              href="tel:+180012451424" // Change to anchor tag for dialing
               className="bg-white text-emerald-600 px-6 py-3 rounded-full font-medium inline-flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -126,7 +127,7 @@ export default function Achievements() {
               </motion.span>
               Call Us
               <span className="font-normal">+1800-1245-1424</span>
-            </motion.button>
+            </motion.a>
           </div>
           <div className="absolute right-8 bottom-0">
             <motion.img
