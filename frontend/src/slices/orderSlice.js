@@ -153,8 +153,22 @@ const orderSlice = createSlice({
                 ...state,
                 isOrderUpdated: false
             }
-        }
-
+        },
+         // New cancel order actions
+         cancelOrderRequest(state) {
+            return{
+                ...state,
+            
+            loading : true}
+        },
+        cancelOrderSuccess(state) {
+            state.loading = false;
+            state.isOrderUpdated = true;
+        },
+        cancelOrderFail(state, action) {
+            state.loading = false;
+            state.error = action.payload;
+        },
     }
 });
 
@@ -181,7 +195,10 @@ export const {
     updateOrderRequest,
     updateOrderSuccess,
     clearOrderDeleted,
-    clearOrderUpdated
+    clearOrderUpdated,
+    cancelOrderRequest,
+    cancelOrderSuccess,
+    cancelOrderFail
  } = actions;
 
 export default reducer;

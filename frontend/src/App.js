@@ -41,6 +41,8 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import Contact from './components/Contact/Contact';
 import Shop from './components/layouts/Shop';
+import PaymentMethod from './components/cart/PaymentMethod';
+import CashOnDelivery from './components/cart/Cashondelivery';
 
 import ContactMessagesList from './components/admin/ContactMessagesList';
 
@@ -86,6 +88,9 @@ function App() {
                       <Route path='/order/confirm' element={<ProtectedRoute><ConfirmOrder/></ProtectedRoute> } />
                       <Route path='/order/success' element={<ProtectedRoute><OrderSuccess/></ProtectedRoute> } />
                       <Route path='/orders' element={<ProtectedRoute><UserOrders/></ProtectedRoute> } />
+                      <Route path='/paymentmethod' element={<ProtectedRoute><PaymentMethod/></ProtectedRoute> } />
+                      <Route path='/cashondelivery' element={<ProtectedRoute><CashOnDelivery/></ProtectedRoute> } />
+                    
                       <Route path='/order/:id' element={<ProtectedRoute><OrderDetail/></ProtectedRoute> } />
                       {stripeApiKey && <Route path='/payment' element={<ProtectedRoute><Elements stripe={loadStripe(stripeApiKey)}><Payment/></Elements></ProtectedRoute> } />
 } 

@@ -3,10 +3,12 @@ import { Leaf, Search, ShoppingCart, User, Menu, X, Home, ShoppingBag, Clipboard
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from './SearchBar';
 import { CartButton } from './CartButton'; // Make sure to import CartButton
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Image } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
+
+import { motion } from 'framer-motion';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -123,12 +125,18 @@ export default function Header() {
                   <User size={24} />
                 </button>
               )}
-              <button
-                className="relative"
-                onClick={() => navigate('/cart')}
+              <Link to="/cart" className="mx-2 flex items-center hover:text-green-200 transition duration-300">
+              <i className="fa fa-shopping-cart mr-1"></i>
+              Cart
+              <motion.span
+                className="ml-1 bg-white text-green-600 rounded-full px-2 py-1 text-xs font-bold"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 500, damping: 5 }}
               >
-                <CartButton itemCount={cartItems.length} />
-              </button>
+                {cartItems.length}
+              </motion.span>
+            </Link>
             </div>
           </div>
         </div>

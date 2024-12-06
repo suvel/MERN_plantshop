@@ -23,7 +23,8 @@ export default function ConfirmOrder () {
             totalPrice
         }
         sessionStorage.setItem('orderInfo', JSON.stringify(data))
-        navigate('/payment')
+        //navigate('/payment')
+        navigate('/paymentmethod')
     }
 
 

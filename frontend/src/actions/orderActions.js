@@ -1,11 +1,12 @@
-import {adminOrdersFail, adminOrdersRequest, adminOrdersSuccess, createOrderFail, createOrderRequest, createOrderSuccess, deleteOrderFail, deleteOrderRequest, deleteOrderSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, updateOrderFail, updateOrderRequest, updateOrderSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from '../slices/orderSlice';
+import {adminOrdersFail, adminOrdersRequest, adminOrdersSuccess, cancelOrderFail, cancelOrderRequest, cancelOrderSuccess, createOrderFail, createOrderRequest, createOrderSuccess, deleteOrderFail, deleteOrderRequest, deleteOrderSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, updateOrderFail, updateOrderRequest, updateOrderSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from '../slices/orderSlice';
 import axios from 'axios';
 
 export const createOrder = order => async(dispatch) => {
     try {
        dispatch(createOrderRequest())
        const {data} = await axios.post(`/api/v1/order/new`, order)
-       dispatch(createOrderSuccess(data))
+       dispatch(createOrderSuccess(data));
+       return data;
     } catch (error) {
         dispatch(createOrderFail(error.response.data.message))
     }
@@ -58,3 +59,16 @@ export const updateOrder = (id, orderData)  => async(dispatch) => {
        dispatch(updateOrderFail(error.response.data.message))
     }
 }
+
+export const cancelOrder = (id) => async (dispatch) => {
+    try {
+        dispatch(cancelOrderRequest());
+        await axios.put(`/api/v1/order/cancel/${id}`);
+        dispatch(cancelOrderSuccess());
+        
+        // Fetch the updated order details
+        dispatch(orderDetail(id));
+    } catch (error) {
+        dispatch(cancelOrderFail(error.response.data.message));
+    }
+};

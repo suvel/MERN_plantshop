@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { getAdminProducts } from "../../actions/productActions";
 import { getUsers } from '../../actions/userActions';
-import { adminOrders as adminOrdersAction } from '../../actions/orderActions';
+import { adminOrders as adminOrdersAction, } from '../../actions/orderActions';
 import { adminContactMessages } from "../../actions/contactActions";
 import { Link } from "react-router-dom";
 import { Pie, Bar } from 'react-chartjs-2';
@@ -77,7 +77,7 @@ export default function Dashboard() {
     dispatch(getAdminProducts);
     dispatch(getUsers);
     dispatch(adminOrdersAction);
-    dispatch(adminContactMessages);
+    dispatch(adminContactMessages());
   }, []);
 
   return (

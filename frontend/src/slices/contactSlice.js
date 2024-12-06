@@ -1,57 +1,90 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const contactSlice = createSlice({
-    name: 'contact',
+    name: "contact",
     initialState: {
         loading: false,
         contactMessages: [],
         error: null,
         isMessageSent: false,
-        isMessageDeleted: false
+        isMessageDeleted: false,
     },
     reducers: {
         createContactRequest(state) {
-            state.loading = true;
-            state.isMessageSent = false;
+            return {
+                ...state,
+                loading: true,
+                isMessageSent: false,
+            };
         },
-        createContactSuccess(state, action) {
-            state.loading = false;
-            state.isMessageSent = true;
+        createContactSuccess(state) {
+            return {
+                ...state,
+                loading: false,
+                isMessageSent: true,
+            };
         },
         createContactFail(state, action) {
-            state.loading = false;
-            state.error = action.payload;
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
         },
         adminContactMessageRequest(state) {
-            state.loading = true;
+            return {
+                ...state,
+                loading: true,
+            };
         },
         adminContactMessageSuccess(state, action) {
-            state.loading = false;
-            state.contactMessages = action.payload.contactMessages;
+            return {
+                ...state,
+                loading: false,
+                contactMessages: action.payload.contactMessages || action.payload,
+            };
         },
         adminContactMessageFail(state, action) {
-            state.loading = false;
-            state.error = action.payload;
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
         },
         deleteContactMessageRequest(state) {
-            state.loading = true;
-            state.isMessageDeleted = false;
+            return {
+                ...state,
+                loading: true,
+                isMessageDeleted: false,
+            };
         },
         deleteContactMessageSuccess(state) {
-            state.loading = false;
-            state.isMessageDeleted = true;
+            return {
+                ...state,
+                loading: false,
+                isMessageDeleted: true,
+            };
         },
         deleteContactMessageFail(state, action) {
-            state.loading = false;
-            state.error = action.payload;
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
         },
         clearError(state) {
-            state.error = null;
+            return {
+                ...state,
+                error: null,
+            };
         },
         clearMessageSent(state) {
-            state.isMessageSent = false;
-        }
-    }
+            return {
+                ...state,
+                isMessageSent: false,
+            };
+        },
+    },
 });
 
 export const {
@@ -65,7 +98,7 @@ export const {
     deleteContactMessageSuccess,
     deleteContactMessageFail,
     clearError,
-    clearMessageSent
+    clearMessageSent,
 } = contactSlice.actions;
 
 export default contactSlice.reducer;
