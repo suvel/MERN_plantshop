@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Leaf, Search, ShoppingCart, User, Menu, X, Home, ShoppingBag, ClipboardList, Info } from 'lucide-react';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from './SearchBar';
 import { CartButton } from './CartButton'; // Make sure to import CartButton
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Image } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
-
 import { motion } from 'framer-motion';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isAuthenticated, user } = useSelector((state) => state.authState);
   const { items: cartItems } = useSelector((state) => state.cartState);
+
+  const headerRef = React.useRef(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
 
   const handleAboutClick = () => {
     navigate('/about');
@@ -27,123 +35,130 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full">
-      {/* Announcement Bar */}
-      <div
-        style={{ backgroundColor: '#ffffff', color: '#166534' }}
-        className="text-center py-2 text-sm"
-      >
-        Free Shipping on Orders Over $75 | Same Day Delivery Available
-      </div>
+    <>
+      {/* Header */}
+      <header ref={headerRef} className="w-full fixed top-0 z-50">
+        {/* Announcement Bar */}
+        <div
+          style={{ backgroundColor: '#ffffff', color: '#166534' }}
+          className="text-center py-2 text-sm"
+        >
+          Free Shipping on Orders Over $75 | Same Day Delivery Available
+        </div>
 
-      {/* Main Header */}
-      <div className="bg-[#166534] text-white py-4">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <Leaf className="h-6 w-6" />
-              <span className="text-xl font-semibold hidden sm:inline">PlantHub</span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8 bg-transparent">
-              <a href="/" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
-                <Home size={20} />
-                Home
-              </a>
-              <a
-                onClick={() => navigate('/shop')}
-                className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer"
+        {/* Main Header */}
+        <div className="bg-[#166534] text-white py-4">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex items-center justify-between">
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <ShoppingBag size={20} />
-                Shop
-              </a>
-              <a href="/orders" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
-                <ClipboardList size={20} />
-                Orders
-              </a>
-              <a onClick={handleAboutClick} className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer">
-                <Info size={20} />
-                About
-              </a>
-              <a href="/contact" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
-                Contact
-              </a>
-            </nav>
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
 
-            {/* Search Bar */}
-            <SearchBar />
+              {/* Logo */}
+              <div className="flex items-center gap-2">
+                <Leaf className="h-6 w-6" />
+                <span className="text-xl font-semibold hidden sm:inline">PlantHub</span>
+              </div>
 
-            {/* User Actions */}
-            <div className="flex items-center gap-4">
-              {isAuthenticated ? (
-                <Dropdown className="d-inline">
-                  <Dropdown.Toggle variant="default text-white pr-5" id="dropdown-basic">
+              {/* Desktop Navigation */}
+              <nav className="hidden lg:flex items-center gap-8 bg-transparent">
+                <a href="/" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
+                  <Home size={20} />
+                  Home
+                </a>
+                <a
+                  onClick={() => navigate('/shop')}
+                  className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <ShoppingBag size={20} />
+                  Shop
+                </a>
+                <a href="/orders" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
+                  <ClipboardList size={20} />
+                  Orders
+                </a>
+                <a onClick={handleAboutClick} className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer">
+                  <Info size={20} />
+                  About
+                </a>
+                <a href="/contact" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
+                  Contact
+                </a>
+              </nav>
 
-                    <span>{user.name}</span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {user.role === 'admin' && (
+              {/* Search Bar */}
+              <SearchBar />
+
+              {/* User Actions */}
+              <div className="flex items-center gap-4">
+                {isAuthenticated ? (
+                  <Dropdown className="d-inline">
+                    <Dropdown.Toggle variant="default text-white pr-5" id="dropdown-basic">
+                      <span>{user.name}</span>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {user.role === 'admin' && (
+                        <Dropdown.Item
+                          onClick={() => navigate('/admin/dashboard')}
+                          className="text-dark"
+                        >
+                          Dashboard
+                        </Dropdown.Item>
+                      )}
                       <Dropdown.Item
-                        onClick={() => navigate('/admin/dashboard')}
+                        onClick={() => navigate('/myprofile')}
                         className="text-dark"
                       >
-                        Dashboard
+                        Profile
                       </Dropdown.Item>
-                    )}
-                    <Dropdown.Item
-                      onClick={() => navigate('/myprofile')}
-                      className="text-dark"
-                    >
-                      Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => navigate('/orders')}
-                      className="text-dark"
-                    >
-                      Orders
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={logoutHandler} className="text-danger">
-                      Logout
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                <button
-                  className="hover:text-white/80 transition-colors hidden sm:block"
-                  onClick={() => navigate('/login')}
-                >
-                  <User size={24} />
-                </button>
-              )}
-              <Link to="/cart" className="mx-2 flex items-center hover:text-green-200 transition duration-300">
-              <i className="fa fa-shopping-cart mr-1"></i>
-              Cart
-              <motion.span
-                className="ml-1 bg-white text-green-600 rounded-full px-2 py-1 text-xs font-bold"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 500, damping: 5 }}
-              >
-                {cartItems.length}
-              </motion.span>
-            </Link>
+                      <Dropdown.Item
+                        onClick={() => navigate('/orders')}
+                        className="text-dark"
+                      >
+                        Orders
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={logoutHandler} className="text-danger">
+                        Logout
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ) : (
+                  <button
+                    className="hover:text-white/80 transition-colors hidden sm:block"
+                    onClick={() => navigate('/login')}
+                  >
+                    <User size={24} />
+                  </button>
+                )}
+                <Link to="/cart" className="mx-2 flex items-center hover:text-green-200 transition duration-300">
+                  <i className="fa fa-shopping-cart mr-1"></i>
+                  Cart
+                  <motion.span
+                    className="ml-1 bg-white text-green-600 rounded-full px-2 py-1 text-xs font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 5 }}
+                  >
+                    {cartItems.length}
+                  </motion.span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-    </header>
+        {/* Mobile Menu */}
+        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      </header>
+
+      {/* Add Padding to Main Content */}
+      <div style={{ paddingTop: `${headerHeight}px` }}>
+        {/* Page content goes here */}
+      </div>
+    </>
   );
 }
