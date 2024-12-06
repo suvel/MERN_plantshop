@@ -41,12 +41,11 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import Contact from './components/Contact/Contact';
 import Shop from './components/layouts/Shop';
-<<<<<<< HEAD
+
 import ContactMessagesList from './components/admin/ContactMessagesList';
-=======
+
 import AboutUs from './components/AboutUs/AboutUs';
 
->>>>>>> b5d76599934aa368679281635a746906d206b07a
 
 
 function App() {

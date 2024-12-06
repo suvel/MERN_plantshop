@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Leaf, Search, ShoppingCart, User, Menu, X, Home, ShoppingBag, ClipboardList, Heart, Info } from 'lucide-react';
+import { Leaf, Search, ShoppingCart, User, Menu, X, Home, ShoppingBag, ClipboardList, Info } from 'lucide-react';
 import { MobileMenu } from './MobileMenu';
 import { SearchBar } from './SearchBar';
 import { CartButton } from './CartButton'; // Make sure to import CartButton
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { DropdownButton, Dropdown, Image } from 'react-bootstrap';
+import { Dropdown, Image } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
 
 export default function Header() {
@@ -16,15 +16,6 @@ export default function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.authState);
   const { items: cartItems } = useSelector((state) => state.cartState);
 
-  // const handleAboutClick = () => {
-  //   navigate('/');
-  //   setTimeout(() => {
-  //     const aboutSection = document.getElementById('about-section');
-  //     if (aboutSection) {
-  //       aboutSection.scrollIntoView({ behavior: 'smooth' });
-  //     }
-  //   }, 100);
-  // };
   const handleAboutClick = () => {
     navigate('/about');
   };
@@ -68,12 +59,12 @@ export default function Header() {
                 Home
               </a>
               <a
-  onClick={() => navigate('/shop')}
-  className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer"
->
-  <ShoppingBag size={20} />
-  Shop
-</a>
+                onClick={() => navigate('/shop')}
+                className="text-white hover:text-white/80 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <ShoppingBag size={20} />
+                Shop
+              </a>
               <a href="/orders" className="text-white hover:text-white/80 transition-colors flex items-center gap-2">
                 <ClipboardList size={20} />
                 Orders
@@ -95,9 +86,7 @@ export default function Header() {
               {isAuthenticated ? (
                 <Dropdown className="d-inline">
                   <Dropdown.Toggle variant="default text-white pr-5" id="dropdown-basic">
-                    <figure className="avatar avatar-nav">
-                      <Image width="50px" src={user.avatar ?? './images/default_avatar.png'} />
-                    </figure>
+                    {/* Remove user avatar */}
                     <span>{user.name}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
