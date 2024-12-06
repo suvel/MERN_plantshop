@@ -5,6 +5,7 @@ import { orderCompleted } from '../../slices/cartSlice';
 import { validateShipping } from '../cart/Shipping';
 import { createOrder } from '../../actions/orderActions';
 import { clearError as clearOrderError } from '../../slices/orderSlice';
+import { getProduct } from '../../actions/productActions';
 
 export default function CashOnDelivery() {
     const dispatch = useDispatch();
@@ -27,15 +28,39 @@ export default function CashOnDelivery() {
         order.totalPrice = orderInfo.totalPrice;
     }
 
+    // const handleCOD = async () => {
+    //     validateShipping(shippingInfo, navigate);
+    //     try {
+    //         dispatch(orderCompleted());
+    //         dispatch(createOrder(order));
+    //         toast('Order placed successfully!', {
+    //             type: 'success',
+    //             position: toast.POSITION.BOTTOM_CENTER,
+    //         });
+    //         navigate('/order/success');
+    //     } catch (error) {
+    //         toast(error.message, {
+    //             type: 'error',
+    //             position: toast.POSITION.BOTTOM_CENTER,
+    //         });
+    //     }
+    // };
     const handleCOD = async () => {
         validateShipping(shippingInfo, navigate);
         try {
+            await dispatch(createOrder(order)); // Backend stock update happens here
             dispatch(orderCompleted());
-            dispatch(createOrder(order));
+            
+            // Fetch updated product details
+            for (let item of order.orderItems) {
+                await dispatch(getProduct(item.product));
+            }
+    
             toast('Order placed successfully!', {
                 type: 'success',
                 position: toast.POSITION.BOTTOM_CENTER,
             });
+    
             navigate('/order/success');
         } catch (error) {
             toast(error.message, {
@@ -44,6 +69,7 @@ export default function CashOnDelivery() {
             });
         }
     };
+    
 
     return (
         <div className="row wrapper">

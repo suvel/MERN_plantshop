@@ -112,6 +112,32 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     })
 
 })
+//update stock
+// Decrease Product Stock - api/v1/product/stock
+exports.decreaseStock = catchAsyncError(async (req, res, next) => {
+    const { productId, quantity } = req.body;
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+        return next(new ErrorHandler('Product not found', 404));
+    }
+
+    if (product.stock < quantity) {
+        return next(new ErrorHandler('Insufficient stock available', 400));
+    }
+
+    // Decrease stock
+    product.stock -= quantity;
+
+    await product.save();
+
+    res.status(200).json({
+        success: true,
+        message: 'Stock updated successfully',
+        product,
+    });
+});
 
 //Delete Product - api/v1/product/:id
 exports.deleteProduct = catchAsyncError(async (req, res, next) =>{

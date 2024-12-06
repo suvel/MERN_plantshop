@@ -14,6 +14,10 @@ exports.newOrder =  catchAsyncError( async (req, res, next) => {
         paymentInfo
     } = req.body;
 
+    for (let item of orderItems) {
+        await updateStock(item.product, item.quantity);
+    }
+
     const order = await Order.create({
         orderItems,
         shippingInfo,
@@ -102,6 +106,9 @@ exports.updateOrder =  catchAsyncError(async (req, res, next) => {
 async function updateStock (productId, quantity){
     const product = await Product.findById(productId);
     product.stock = product.stock - quantity;
+    if(product.stock<=0){
+        product.stock = 0;
+    }
     product.save({validateBeforeSave: false})
 }
 
