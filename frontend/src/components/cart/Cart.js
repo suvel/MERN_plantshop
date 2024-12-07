@@ -63,8 +63,9 @@ export default function Cart() {
                                             </div>
                                             <div className="flex flex-col justify-between ml-4 flex-grow">
                                                 <span className="font-bold text-sm">{item.name}</span>
-                                                <Link to={`/product/${item.product}`} className="text-red-500 text-xs">Remove</Link>
-                                            </div>
+                                                <div className="col-4 col-lg-1 mt-4 mt-lg-0">
+                                                <i id="delete_cart_item" onClick={() => dispatch(removeItemFromCart(item.product))} className="fa fa-trash btn btn-danger"></i>
+                                            </div>                                            </div>
                                         </div>
                                         <div className="flex justify-center w-1/5">
                                             <button onClick={() => decreaseQty(item)}>

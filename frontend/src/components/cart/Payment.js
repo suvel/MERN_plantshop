@@ -6,10 +6,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
-import {validateShipping} from './Shipping';
+import {validateShipping} from '../cart/Shipping';
 import {createOrder} from '../../actions/orderActions'
 import { clearError as clearOrderError } from "../../slices/orderSlice";
-import { getProduct } from "../../actions/productActions";
 
 export default function Payment() {
     const stripe = useStripe();
@@ -62,114 +61,56 @@ export default function Payment() {
 
     },[])
 
-    // const submitHandler = async (e) => {
-    //     e.preventDefault();
-    //     document.querySelector('#pay_btn').disabled = true;
-    //     try {
-    //         const {data} = await axios.post('/api/v1/payment/process', paymentData)
-    //         const clientSecret = data.client_secret
-    //         const result = await stripe.confirmCardPayment(clientSecret, {
-    //             payment_method: {
-    //                 card: elements.getElement(CardNumberElement),
-    //                 billing_details: {
-    //                     name: user.name,
-    //                     email: user.email
-    //                 }
-    //             }
-    //         })
-
-    //         if(result.error){
-    //             toast(result.error.message, {
-    //                 type: 'error',
-    //                 position: toast.POSITION.BOTTOM_CENTER
-    //             })
-    //             document.querySelector('#pay_btn').disabled = false;
-    //         }else{
-    //             if((await result).paymentIntent.status === 'succeeded') {
-    //                 toast('Payment Success!', {
-    //                     type: 'success',
-    //                     position: toast.POSITION.BOTTOM_CENTER
-    //                 })
-    //                 order.paymentInfo = {
-    //                     id: result.paymentIntent.id,
-    //                     status: result.paymentIntent.status
-    //                 }
-    //                 dispatch(orderCompleted())
-    //                 dispatch(createOrder(order))
-
-    //                 navigate('/order/success')
-    //             }else{
-    //                 toast('Please Try again!', {
-    //                     type: 'warning',
-    //                     position: toast.POSITION.BOTTOM_CENTER
-    //                 })
-    //             }
-    //         }
-
-
-    //     } catch (error) {
-            
-    //     }
-    // }
-
     const submitHandler = async (e) => {
         e.preventDefault();
         document.querySelector('#pay_btn').disabled = true;
-    
         try {
-            const { data } = await axios.post('/api/v1/payment/process', paymentData);
-            const clientSecret = data.client_secret;
-    
+            const {data} = await axios.post('/api/v1/payment/process', paymentData)
+            const clientSecret = data.client_secret
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardNumberElement),
                     billing_details: {
                         name: user.name,
-                        email: user.email,
-                    },
-                },
-            });
-    
-            if (result.error) {
+                        email: user.email
+                    }
+                }
+            })
+
+            if(result.error){
                 toast(result.error.message, {
                     type: 'error',
-                    position: toast.POSITION.BOTTOM_CENTER,
-                });
+                    position: toast.POSITION.BOTTOM_CENTER
+                })
                 document.querySelector('#pay_btn').disabled = false;
-            } else if (result.paymentIntent.status === 'succeeded') {
-                toast('Payment Success!', {
-                    type: 'success',
-                    position: toast.POSITION.BOTTOM_CENTER,
-                });
-    
-                order.paymentInfo = {
-                    id: result.paymentIntent.id,
-                    status: result.paymentIntent.status,
-                };
-    
-                await dispatch(createOrder(order)); // Backend stock update happens here
-                dispatch(orderCompleted());
-    
-                // Fetch updated product details
-                for (let item of order.orderItems) {
-                    await dispatch(getProduct(item.product));
+            }else{
+                if((await result).paymentIntent.status === 'succeeded') {
+                    toast('Payment Success!', {
+                        type: 'success',
+                        position: toast.POSITION.BOTTOM_CENTER
+                    })
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
+                    dispatch(orderCompleted())
+                    dispatch(createOrder(order))
+
+                    navigate('/order/success')
+                }else{
+                    toast('Please Try again!', {
+                        type: 'warning',
+                        position: toast.POSITION.BOTTOM_CENTER
+                    })
                 }
-    
-                navigate('/order/success');
-            } else {
-                toast('Please Try again!', {
-                    type: 'warning',
-                    position: toast.POSITION.BOTTOM_CENTER,
-                });
             }
+
+
         } catch (error) {
-            toast(error.message || 'Something went wrong!', {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER,
-            });
+            
         }
-    };
-    
+    }
+
 
      return (
         <div className="row wrapper">

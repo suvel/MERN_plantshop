@@ -41,12 +41,8 @@ exports.refundPayment = catchAsyncError(async (req, res, next) => {
             reason: reason || "requested_by_customer",
         });
 
-        // Update the order's payment status to "refunded"
-        const order = await Order.findOneAndUpdate(
-            { "paymentInfo.id": paymentIntentId }, // Find the order with the given paymentIntentId
-            { "paymentInfo.status": "Refunded" }, // Update paymentInfo.status to "refunded"
-            { new: true } // Return the updated document
-        );
+        // Find the order associated with the paymentIntentId
+        const order = await Order.findOne({ "paymentInfo.id": paymentIntentId });
 
         if (!order) {
             return res.status(404).json({
@@ -54,6 +50,15 @@ exports.refundPayment = catchAsyncError(async (req, res, next) => {
                 message: "Order not found",
             });
         }
+
+        // Update the order's payment status to "Refunded"
+        order.paymentInfo.status = "Refunded";
+
+        // Reduce the total price of the order by the refund amount
+        order.totalPrice = order.totalPrice - refund.amount / 100; // refund amount is in cents, so divide by 100
+
+        // Save the updated order
+        await order.save();
 
         res.status(200).json({
             success: true,
@@ -69,7 +74,6 @@ exports.refundPayment = catchAsyncError(async (req, res, next) => {
         });
     }
 });
-
 
 exports.processCashOnDelivery = catchAsyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
