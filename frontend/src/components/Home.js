@@ -16,7 +16,7 @@ import PlantShop from './PlantShop'; // Import PlantShop
 import 'animate.css';
 import StoreLocator from '../components/StoreLocator';
 import './StoreLocator.css'; // Import the CSS file
-
+import Shop from './layouts/Shop'
 export default function Home() {
     const dispatch = useDispatch();
     const { products, loading, error, productsCount, resPerPage } = useSelector(
@@ -51,13 +51,13 @@ export default function Home() {
                                 <MetaData title={"Buy Best Products"} />
                                 <HeroSection /> {/* Add HeroSection here */}
                                
-                                <h1 id="products_heading" className="animate__animated animate__fadeInRight text-center">Latest Products</h1>
+                                {/* <h1 id="products_heading" className="animate__animated animate__fadeInRight text-center">Latest Products</h1>
                                 <section id="products" className="container mt-5">
                                     <div className="row">
                                         {products &&
                                             products.map((product) => (
                                                 <Product
-                                                    col={3}
+                                                    col={4}
                                                     key={product._id}
                                                     product={product}
                                                 />
@@ -78,8 +78,20 @@ export default function Home() {
                                             linkClass={"page-link"}
                                         />
                                     </div>
-                                ) : null}
+                                    */}
+
+                                    
+{/*                                     
+                                 ) : null} */}
+
+
+
+
+                                 
+<Shop/>
+
                                  <Achievements /> {/* Add Achievements here */}
+                                
                                  <PlantShop /> {/* Add PlantShop here */}
                                  <Testimonials /> {/* Add Testimonials here */}
                                 <AboutSection /> {/* Add AboutSection here */}

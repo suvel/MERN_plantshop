@@ -1,27 +1,13 @@
 import axios from 'axios';
 import { productsFail, productsSuccess, productsRequest, adminProductsRequest, adminProductsSuccess, adminProductsFail } from '../slices/productsSlice';
 import { productFail, productSuccess, productRequest, createReviewRequest, createReviewSuccess, createReviewFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess, updateProductFail, reviewsRequest, reviewsSuccess, reviewsFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail } from '../slices/productSlice';
-
-export const getProducts = (keyword, price, category, rating, currentPage) => async (dispatch) => {
-
-    try {  
-        dispatch(productsRequest()) 
-        let link = `/api/v1/products?page=${currentPage}`;
-        
-        if(keyword) {
-            link += `&keyword=${keyword}`
-        }
-        if(price) {
-            link += `&price[gte]=${price[0]}&price[lte]=${price[1]}`
-        }
-        if(category) {
-            link += `&category=${category}`
-        }
-        if(rating) {
-            link += `&ratings=${rating}`
-        }
-        
-        const { data }  =  await axios.get(link);
+export const getProducts = (keyword = "", price= [1, 1000], category=null, rating = 0, currentPage = 1, sortBy = null) => async (dispatch) => {
+    try {
+        let query = `/api/v1/products?page=${currentPage}&keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&sort=${sortBy}`;
+        if (category) query += `&category=${category}`;
+        if (rating) query += `&ratings[gte]=${rating}`;
+ 
+        const { data }  =  await axios.get(query );
         dispatch(productsSuccess(data))
     } catch (error) {
         //handle error
