@@ -53,9 +53,11 @@ export const deleteOrder = id => async(dispatch) => {
 export const updateOrder = (id, orderData)  => async(dispatch) => {
     try {
        dispatch(updateOrderRequest())
+       console.log(id, orderData)
        const { data} = await axios.put(`/api/v1/admin/order/${id}`, orderData)
        dispatch(updateOrderSuccess(data))
     } catch (error) {
+        console.log("there is error in updateOrder action", error)
        dispatch(updateOrderFail(error.response.data.message))
     }
 }
