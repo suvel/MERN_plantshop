@@ -68,7 +68,7 @@ export default function OrderDetail() {
 {/*  cancel order button*/ }
 
 
-{ orderStatus !== 'Cancelled' && orderStatus !== 'Delivered' && (
+{ orderStatus !== 'Cancelled' && orderStatus !== 'cancelled' && orderStatus !== 'Delivered' && (
     <button onClick={handleCancelOrder} className="btn btn-danger">Cancel Order</button>
 )}
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
