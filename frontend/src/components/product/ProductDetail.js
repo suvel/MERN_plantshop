@@ -85,7 +85,7 @@ export default function ProductDetail() {
                                 transition={{ duration: 0.5 }}
                                 className="product-images"
                             >
-                                <Carousel pause="hover" className="bg-white rounded-lg shadow-lg overflow-hidden">
+                                <Carousel pause="hover" className="bg-white rounded-lg  overflow-hidden">
                                     {product.images && product.images.length > 0 && product.images.map(image =>
                                         <Carousel.Item key={image._id}>
                                             <img className="d-block w-100" src={image.image} alt={product.name} />
@@ -101,7 +101,7 @@ export default function ProductDetail() {
                                 className="product-info bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6"
                             >
                                 <h1 className="text-3xl font-bold text-green-700 dark:text-green-500 mb-4">{product.name}</h1>
-                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Product # {product._id}</p>
+                                {/* /<p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Product # {product._id}</p> */}
                                 <motion.div
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -113,10 +113,10 @@ export default function ProductDetail() {
                     </div>
                                
                                     <div>
-                                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({product.numOfReviews} Reviews)</span>
+                                    <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">({product.numOfReviews} Reviews)</span>
                                 </div>
 </motion.div>
-                                <h3 className="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">${product.price}</h3>
+                                <h3 className="text-3xl font-bold  text-green  mb-4">${product.price}</h3>
 
                                 <div className="flex items-center mb-4">
                                     <button className="bg-gray-200 text-gray-700 px-3 py-2 rounded-l-md hover:bg-gray-300 transition duration-300" onClick={decreaseQty}>-</button>
@@ -147,7 +147,7 @@ export default function ProductDetail() {
                                 </p>
 
                                 <h4 className="text-xl font-semibold mb-2">Description:</h4>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{product.description}</p>
+                                <p className="text-green-700 dark:text-green mb-4">{product.description}</p>
 
                                 <p className="mb-4">
                                     Sold by: <strong>{product.seller}</strong>

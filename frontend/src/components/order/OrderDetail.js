@@ -33,7 +33,7 @@ export default function OrderDetail() {
                     transition={{ duration: 0.5 }}
                 >
                     <motion.h1 
-                        className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200"
+                        className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray"
                         initial={{ y: -50 }}
                         animate={{ y: 0 }}
                         transition={{ delay: 0.2 }}
@@ -42,7 +42,7 @@ export default function OrderDetail() {
                     </motion.h1>
 
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Shipping Info</h4>
+                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray">Shipping Info</h4>
                         <p className="mb-2"><span className="font-semibold">Name:</span> {user.name}</p>
                         <p className="mb-2"><span className="font-semibold">Phone:</span> {shippingInfo.phoneNo}</p>
                         <p className="mb-4"><span className="font-semibold">Address:</span> {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.state}, ${shippingInfo.country}`}</p>
@@ -50,7 +50,7 @@ export default function OrderDetail() {
                     </div>
 
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Payment</h4>
+                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray">Payment</h4>
                         {/* <p className={`font-semibold ${isPaid ? 'text-green-500' : 'text-red-500'}`}>
                             {isPaid ? 'PAID' : 'NOT PAID'}
                         </p> */}
@@ -60,7 +60,7 @@ export default function OrderDetail() {
                     </div>
 
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Order Status:</h4>
+                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray">Order Status:</h4>
                         <p className={`font-semibold ${orderStatus && orderStatus.includes('Delivered') ? 'text-green-500' : 'text-yellow-500'}`}>
                             {orderStatus}
                         </p>
@@ -72,11 +72,11 @@ export default function OrderDetail() {
     <button onClick={handleCancelOrder} className="btn btn-danger">Cancel Order</button>
 )}
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Order Items:</h4>
+                        <h4 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray">Order Items:</h4>
                         {orderItems && orderItems.map(item => (
                             <motion.div 
                                 key={item.product}
-                                className="flex items-center border-b border-gray-200 dark:border-gray-700 py-4 last:border-b-0"
+                                className="flex items-center border-b border-gray-200 dark:border-gray py-4 last:border-b-0"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.3 }}
