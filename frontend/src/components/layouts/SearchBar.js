@@ -65,13 +65,13 @@ export function SearchBar() {
   }, [location.pathname]);
 
   return (
-    <div className="relative hidden md:flex items-center flex-1 max-w-xl mx-8">
+    <div className="relative flex items-center flex-1 mx-2 md:mx-8 max-w-full md:max-w-xl">
       <form onSubmit={searchHandler} className="w-full">
         <div className="relative w-full">
           <input
             type="text"
             placeholder="Search plants, pots, tools..."
-            className="w-full py-2 px-4 pr-10 rounded-full bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full py-2 px-4 pr-10 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
@@ -93,8 +93,9 @@ export function SearchBar() {
               className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"
               onClick={() => handleSuggestionClick(product._id)}
             >
-              {/* <img src={product.images[0].url} alt={product.name} className="w-10 h-10 object-cover mr-2 rounded-md" />
-              */}<span>{product.name}</span> 
+              {/* Uncomment the line below if product images are available */}
+              {/* <img src={product.images[0].url} alt={product.name} className="w-10 h-10 object-cover mr-2 rounded-md" /> */}
+              <span>{product.name}</span>
             </div>
           ))}
         </div>
@@ -102,4 +103,3 @@ export function SearchBar() {
     </div>
   );
 }
-
