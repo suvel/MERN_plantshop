@@ -107,6 +107,10 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
     }
 
     order.orderStatus = req.body.orderStatus;
+    if(!req.body.orderStatus){
+        order.orderStatus="cancelled";
+    }
+
     await order.save();
 
     res.status(200).json({
