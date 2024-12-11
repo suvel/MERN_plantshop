@@ -56,12 +56,13 @@ exports.refundPayment = catchAsyncError(async (req, res, next) => {
 
         // Reduce the total price of the order by the refund amount
         order.totalPrice = order.totalPrice - refund.amount / 100; // refund amount is in cents, so divide by 100
-
+        order.orderStatus = "Cancelled";
         // Save the updated order
         await order.save();
 
         res.status(200).json({
             success: true,
+            orderStatus: "Cancelled",
             message: "Refund processed successfully",
             refund,
             updatedOrder: order, // Send the updated order in the response

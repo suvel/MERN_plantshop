@@ -58,6 +58,7 @@ export default function UpdateOrder () {
         }
 
         if(error)  {
+            console.log('error in updateordr.js', error);
             toast(error, {
                 position: toast.POSITION.BOTTOM_CENTER,
                 type: 'error',
