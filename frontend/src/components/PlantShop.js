@@ -118,7 +118,7 @@ export default function PlantShop() {
             <Phone className="w-6 h-6" />
           </div>
           <h3 className="font-semibold">Need Help ? Call</h3>
-          <p className="text-sm text-gray-600">(+216)27 480 368</p>
+          <p className="text-sm text-gray-600">+971 502369764</p>
         </div>
 
         <div className="flex flex-col items-center text-center">

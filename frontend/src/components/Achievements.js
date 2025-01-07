@@ -97,10 +97,11 @@ export default function Achievements() {
               ipsum suspendisse gravida.
             </p>
             <motion.a
-              href="tel:+180012451424" // Change to anchor tag for dialing
+              href="+971 502369764" // Change to anchor tag for dialing
               className="bg-white text-emerald-600 px-6 py-3 rounded-full font-medium inline-flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              
             >
               <motion.span
                 className="inline-block w-6 h-6 bg-emerald-100 rounded-full"
@@ -126,7 +127,7 @@ export default function Achievements() {
                 </svg>
               </motion.span>
               Call Us
-              <span className="font-normal">+1800-1245-1424</span>
+              <span className="font-normal">+971 502369764</span>
             </motion.a>
           </div>
           <div className="absolute right-8 bottom-0">

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async"
 export default function MetaData({title}) {
     return (
         <Helmet>
-            <title>{`${title} - plantshop`}</title>
+            <title>{`${title} - Trees Herbs & More`}</title>
         </Helmet>
     )
 }

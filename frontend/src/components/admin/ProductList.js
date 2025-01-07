@@ -62,7 +62,7 @@ export default function ProductList() {
       data.rows.push({
         id: product._id,
         name: product.name,
-        price: `$${product.price}`,
+        price: `د.إ${product.price}`,
         stock: product.stock,
         actions: (
           <Fragment>

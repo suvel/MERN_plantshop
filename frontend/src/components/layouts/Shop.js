@@ -74,8 +74,8 @@ export default function Shop() {
                                       <Slider
                                           range={true}
                                           marks={{
-                                              1: "$1",
-                                              1000: "$1000",
+                                              1: "د.إ1",
+                                              1000: "د.إ1000",
                                           }}
                                           min={1}
                                           max={1000}

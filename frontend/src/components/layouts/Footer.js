@@ -26,7 +26,9 @@ export default function Footer() {
               <a href="tel:+0522330399" className="hover:text-emerald-600 transition-colors">
                 +052 2330399
               </a>
-              
+              <a href="tel:+0502369764" className="hover:text-emerald-600 transition-colors">
+                +050 2369764
+              </a>
             </div>
             <div className="flex items-center gap-2 text-emerald-500">
               <Mail size={20} />
@@ -68,10 +70,10 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <button
-                  onClick={() => navigate('/login')} // Navigate to login page
+                  onClick={() => navigate('/myprofile')} // Navigate to login page
                   className="text-gray-600 hover:text-emerald-500 transition-colors"
                 >
-                  Sign In
+                Profile
                 </button>
               </li>
               <li>

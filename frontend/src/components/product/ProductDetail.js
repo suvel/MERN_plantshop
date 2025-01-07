@@ -116,7 +116,7 @@ export default function ProductDetail() {
                                     <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">({product.numOfReviews} Reviews)</span>
                                 </div>
 </motion.div>
-                                <h3 className="text-3xl font-bold  text-green  mb-4">${product.price}</h3>
+                                <h3 className="text-3xl font-bold  text-green  mb-4">د.إ{product.price}</h3>
 
                                 <div className="flex items-center mb-4">
                                     <button className="bg-gray-200 text-gray-700 px-3 py-2 rounded-l-md hover:bg-gray-300 transition duration-300" onClick={decreaseQty}>-</button>

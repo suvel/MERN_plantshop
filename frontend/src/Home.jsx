@@ -11,7 +11,7 @@ const Home = () => {
         transition={{ duration: 1 }}
         className="hero"
       >
-        <h1>Welcome to Plantify</h1>
+        <h1>Welcome to Trees Herbs and more</h1>
         <p>Your one-stop shop for lush, healthy plants.</p>
         <Link to="/shop">
           <motion.button
