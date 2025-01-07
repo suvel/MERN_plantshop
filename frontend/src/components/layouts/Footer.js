@@ -49,11 +49,11 @@ export default function Footer() {
                   About Us
                 </button>
               </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-emerald-500">
-                  FAQ
-                </a>
-              </li>
+                {/* <li>
+                  <a href="#" className="text-gray-600 hover:text-emerald-500">
+                    FAQ
+                  </a>
+                </li> */}
               <li>
                 <button
                   onClick={() => navigate('/contact')} // Navigate to contact page

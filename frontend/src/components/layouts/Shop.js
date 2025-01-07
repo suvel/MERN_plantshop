@@ -1,4 +1,4 @@
-import React, { Fragment,useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../actions/productActions';
 import Product from '../product/Product';
@@ -42,6 +42,21 @@ export default function Shop() {
       setCurrentPage(1); // Reset to the first page after applying filters
   };
 
+  const resetFilters = () => {
+      // Reset temp states
+      setTempPrice([1, 1000]);
+      setTempCategory(null);
+      setTempRating(0);
+      setTempSortBy("");
+      
+      // Reset actual states
+      setPrice([1, 1000]);
+      setCategory(null);
+      setRating(0);
+      setSortBy("");
+      setCurrentPage(1);
+  };
+
   useEffect(() => {
       if (error) {
           return toast.error(error, {
@@ -80,6 +95,7 @@ export default function Shop() {
                                           min={1}
                                           max={1000}
                                           defaultValue={tempPrice}
+                                          value={tempPrice}
                                           onChange={(price) => {
                                               setTempPrice(price);
                                           }}
@@ -153,13 +169,21 @@ export default function Shop() {
                                       </select>
                                   </div>
                                   <hr className="my-5" />
-                                  {/* Apply Filters Button */}
-                                  <button
-                                      className="btn btn-success w-100"
-                                      onClick={applyFilters}
-                                  >
-                                      Apply Filters
-                                  </button>
+                                  {/* Filter Buttons */}
+                                  <div className="d-grid gap-2">
+                                      <button
+                                          className="btn btn-success"
+                                          onClick={applyFilters}
+                                      >
+                                          Apply Filters
+                                      </button>
+                                      <button
+                                          className="btn btn-secondary"
+                                          onClick={resetFilters}
+                                      >
+                                          Reset Filters
+                                      </button>
+                                  </div>
                               </div>
                           )}
                           <div className={showFilters ? "col-6 col-md-9" : "col-12"}>

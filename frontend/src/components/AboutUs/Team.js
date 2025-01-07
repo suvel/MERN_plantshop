@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const team = [
-  { name: 'Sarah Johnson', role: 'Founder & Plant Expert', image: 'https://.../image1.jpg' },
-  { name: 'Michael Chen', role: 'Head of Horticulture', image: 'https://.../image2.jpg' },
-  { name: 'Emma Williams', role: 'Plant Care Specialist', image: 'https://.../image3.jpg' },
+  { name: 'Johnson', role: 'Founder & Plant Expert', image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg' },
+  { name: 'Michael Chen', role: 'Head of Horticulture', image: 'https://i.pinimg.com/originals/07/33/ba/0733ba760b29378474dea0fdbcb97107.png' },
+  { name: 'Emma Williams', role: 'Plant Care Specialist', image: 'https://writestylesonline.com/wp-content/uploads/2016/08/Follow-These-Steps-for-a-Flawless-Professional-Profile-Picture.jpg' },
 ];
 
 export const Team = () => {
