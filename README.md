@@ -1,3 +1,11 @@
+// maintainer (1) notes 
+
+1. Download docker
+2. create backend\config\config.env and update the content from backend\config\config_sample_env.txt.
+3. docker-compose up -d --build
+4. visit localhost:8000
+
+//first creator notes
 # Plant-Ecommerce
 
 an E-commerce Website built with MERN stack.
