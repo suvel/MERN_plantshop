@@ -1,23 +1,28 @@
 # Use an official Node.js image as a base
 FROM node:18-bookworm-slim
 
-# Set the working directory to /app
 WORKDIR /app
 
-# Copy the package*.json files to the working directory
-COPY package*.json ./
+COPY package.json .
+COPY package-lock.json .
 
-# Install the dependencies
 RUN npm install
-
-# Copy the application code to the working directory
 COPY . .
 
 
-# Expose the MongoDB port
+WORKDIR /app/frontend
+
+COPY frontend/package.json .
+COPY frontend/package-lock.json .
+
+RUN npm install
+
+COPY frontend/ .
+
+RUN npm run build
+
+WORKDIR /app
+
 EXPOSE 27017
 
-RUN npm run seeder -v
-
-CMD ["npm", "run","start"]
-
+CMD ["npm", "run","seedStart"]
